@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.util.StringUtils;
 
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter{
 
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
 		String header = request.getHeader("Authorization");
 
-        if (header == null || !header.startsWith("Bearer "))
+        if (StringUtils.isEmpty(header) || !header.startsWith("Bearer "))
 			throw new AuthenticationCredentialsNotFoundException("No JWT token found in request headers");
 
         String authToken = header.substring(7);

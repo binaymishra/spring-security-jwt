@@ -2,6 +2,7 @@ package jwt.spring.security;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+	@Value("${jwt.secreteKey}")
+	private String secreteKey;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -36,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	JwtAuthenticationProvider jwtAuthenticationProvider(){
-		return new JwtAuthenticationProvider();
+		return new JwtAuthenticationProvider(secreteKey);
 	}
 
 	@Bean

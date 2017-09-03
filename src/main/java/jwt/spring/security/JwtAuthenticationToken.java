@@ -23,6 +23,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken{
 		this.password = password;
 	}
 
+	public JwtAuthenticationToken(Object username, Collection<? extends GrantedAuthority> authorities) {
+		super(authorities);
+		this.username = username;
+	}
+
 	public JwtAuthenticationToken(Object username,
 			Object password) {
 		super(null);

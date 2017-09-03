@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class Application {
 
 	@GetMapping
-	void home(){}
+	String home(){
+		return "/";
+	}
 
 	@GetMapping("/api")
-	void api(){ }
+	String api(){
+		return "/api";
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
+
 }
