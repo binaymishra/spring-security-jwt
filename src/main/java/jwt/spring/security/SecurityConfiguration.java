@@ -21,13 +21,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.csrf().disable()
-			.sessionManagement().disable()
+		http.csrf().disable() // because there is no form based login.
+			.sessionManagement().disable() // we want to stateless.
 				.exceptionHandling().authenticationEntryPoint((request, response, authException) ->
-					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"));
+					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")); // we want to handle it via response code
 
 		http.authorizeRequests()
-			.antMatchers("/api/**").authenticated()
+			.antMatchers("/", "/token").permitAll()
+			.antMatchers("/api/**").authenticated() // securing /api/** URL
 		.and().addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		http.authenticationProvider(jwtAuthenticationProvider());

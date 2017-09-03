@@ -15,6 +15,10 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.util.StringUtils;
 
+/**
+ * @author Binay Mishra
+ *
+ */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter{
 
 	protected JwtAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationSuccessHandler successHandler) {
@@ -22,11 +26,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		setAuthenticationSuccessHandler(successHandler);
 		setAuthenticationManager(authenticationManager);
 	}
-
-	@Override
-    protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        return true;
-    }
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
